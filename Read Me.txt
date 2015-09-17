@@ -15,7 +15,7 @@ Please feel free to modify it according to the requirements.
 
 Mandatory Steps to follow:
 Always pull the document to your local and modify it. Please avoid modify the orginal ones
-Before check-in please verify the documents for possible merge conflicts, once all merge conflicts are resolved then only merge the documnts
+Before check-in please verify the documents for all possible merge conflicts, once all merge conflicts are resolved then only merge the documnts
 
 
 

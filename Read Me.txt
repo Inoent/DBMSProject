@@ -1,0 +1,22 @@
+Hi Team,
+
+To open the xml files follow below steps,
+
+1). Goto https://www.draw.io/
+2). Select device as your storage option
+3). Click on Open Existing diagram
+4). View the xml as diagrams
+
+
+Comments:
+
+Please feel free to modify it according to the requirements.
+
+
+Mandatory Steps to follow:
+Always pull the document to your local and modify it. Please avoid modify the orginal ones
+Before check-in please verify the documents for possible merge conflicts, once all merge conflicts are resolved then only merge the documnts
+
+
+
+

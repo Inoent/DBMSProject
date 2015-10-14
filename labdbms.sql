@@ -1,0 +1,10 @@
+create database labdbms;
+use labdbms;
+create table courses(cid int(20), coursename varchar(40), primary key(cid));
+create table students(sid int(20), dob date, email varchar(40), password varchar(50), regdate date, profile varchar(20), primary key(sid));
+create table lecturers(lid int(20), dob date, email varchar(20), password varchar(50), regdate date, primary key(lid));
+create table universities(uid int(20), homepage varchar(20), name varchar(20), primary key(uid));
+create table suppliers(supplierindex int(20),uid int(20), lid int(20), primary key(supplierindex), foreign key(uid) references universities(uid), foreign key(lid) references lecturers(lid));
+create table certificates(certid int(20), issuedate date, ctype varchar(20), cgrade varchar(5), primary key(certid));
+create table courseschedule(schedindex int(20), cid int(20), fromdate date, enddate date, lid int(20), foreign key(lid) references lecturers(lid), foreign key(cid) references courses(cid), primary key(schedindex));
+create table certification(certindex int(20), sid int(20), cid int(20), lid int(20), certid int(20), foreign key(sid) references students(sid),foreign key(cid) references courses(cid), foreign key(lid) references lecturers(lid), foreign key(certid) references certificates(certid), primary key(certindex));

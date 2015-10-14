@@ -1,0 +1,91 @@
+Schema refinement :-
+With ER diagram as the reference, Schema for the Core model is derived here
+
+Initial Schema:
+Course(cid:integer,cname:string,cat_id:integer,pid:integer,pname:integer,pinst_name:string,sid:integer,sname:string)
+Resources(cid:integer,rack_id:integer,rtype:string,rname:string,keyword:string)
+Assignment(cid:integer,astart:date,aend:date,ano:integer)
+Impact (cname:string,keyword:string,II:real)
+Trend(cname:string,TI:real )
+
+Schema definition: ( in order of assignment)
+Course	 – ( course_id,course_name,category_id,professor_id,professor_name,Institution_name,student_id,student_name)
+Resources  
+(course_id,rack_id,rack_type,rack_name,keyword)
+Assignment  
+(course_id,assignment_start_date,assignment_end_date,assignment_no)
+Impact   
+(Course_Name,keyword,Impact_Index)
+Trend 
+(course_name,Trend_Index)
+
+NORMALIZATION
+
+1NF Test on Schema:
+Course(cid:integer,cname:string,cat_id0:integer,cat_id1:integer,cat_id2:integer ,pid:integer,pname:integer,pinst_name:string,sid:integer,sname:string)
+Category0(cat_id0:integer,cat_name0:string)
+Category1(cat_id1:integer,cat_name1:string)
+Category2(cat_id2:integer,cat_name2:string)
+Resources(cid:integer,rack_id:integer,rtype:string,rname:string,keyword:string)
+Assignment(cid:integer,astart:date,aend:date,ano:integer)
+Impact (cname:string,keyword:string,II:real)
+Trend(cname:string,TI:real )
+
+1NF Summary of Changes:
+In the above set of schema, cat_id is found to be multivalued. Our database is planned in such a way that a normal browsing takes only 3 clicks before which we reach the desired section. So we will be in requirement of 3 categories which will be referred hierarchically.
+
+Category0(Main category)
+	Category2(subcategory1)
+-->Category 3(subcategory2)
+
+Hence separate entities are created for each categories  therby passing the 1NF test
+
+
+2NF Test on Schemas:
+Course(cid:integer,cname:string,cat_id0:integer,cat_id1:integer,cat_id2:integer)
+Professor(pid:integer,pname:integer,pinst_name:string,cid:integer)
+Student(sid:integer,sname:string,cid:integer)
+Category0(cat_id0:integer,cat_name0:string)
+Category1(cat_id1:integer,cat_name1:string)
+Category2(cat_id2:integer,cat_name2:string)
+Resources(cid:integer,rack_id:integer,rtype:string,rname:string,keyword:string)
+Assignment(cid:integer,astart:date,aend:date,ano:integer)
+Impact (cname:string,keyword:string,II:real)
+Trend(cname:string,TI:real )
+
+2NF Summary of Changes:
+	In the above set of Schema,2NF checks resulted in splitting the ‘Course’ schema into 3 parts – Course,Professor,Student because in 2NF check all the non-prime attributes must be determined by each one of the candidate keys. In above scheme (cid,pid,sid) forms the candidate key and here ‘cid’ does not determine ‘sname’. Hence 2NF check fails and we have split the schema into 3 schemas
+3NF Test on Schemas:
+Course(cid:integer,cname:string)
+Category(cid:integer,cat_id0:integer,cat_id1:integer,cat_id2:integer)
+Professor(pid:integer,pname:integer,pinst_name:string,cid:integer)
+Student(sid:integer,sname:string,cid:integer)
+Category0(cat_id0:integer,cat_name0:string)
+Category1(cat_id1:integer,cat_name1:string)
+Category2(cat_id2:integer,cat_name2:string)
+Resources(cid:integer,rack_id:integer,rtype:string,rname:string,keyword:string)
+Assignment(cid:integer,astart:date,aend:date,ano:integer)
+Impact (cname:string,keyword:string,II:real)
+Trend(cname:string,TI:real
+
+
+3NF Summary of Changes:
+	In the above set of schemas, Course schema  is split into “Course” and “Category” schemas because there existed a functional dependency between “cname” and “cat_id0”,”cat_id1” and “cat_id2” because the course name irrespective of whomsoever offers it will belong to the same category and subcategories. So here it fails 3NF check and so it is split into two schemas.
+
+Note: All the schemas here have been designed in such a way that there is no overlapping candidate key. Henceforth all these schemas are also in BCNF form
+
+So the final schema which is of BCNF form is as below 
+Course (cid:integer,cname:string)
+Category (cid:integer,cat_id0:integer,cat_id1:integer,cat_id2:integer)
+Professor (pid:integer,pname:integer,pinst_name:string,cid:integer)
+Student (sid:integer,sname:string,cid:integer)
+Category0 (cat_id0:integer,cat_name0:string)
+Category1 (cat_id1:integer,cat_name1:string)
+Category2 (cat_id2:integer,cat_name2:string)
+Resources(cid:integer,rack_id:integer,rtype:string,rname:string,keyword:string)
+Assignment (cid:integer,astart:date,aend:date,ano:integer)
+Impact (cname:string,keyword:string,II:real)
+Trend (cname:string,TI:real
+
+
+
